@@ -1,0 +1,16 @@
+#include "DzMainClass.hpp"
+#include <QApplication>
+
+int
+main(
+	int argc,
+	char *argv[])
+{
+	QApplication app(
+		argc,
+		argv);
+
+	DzMainClass mainClass;
+
+	return app.exec();
+}
