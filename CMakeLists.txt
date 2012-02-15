@@ -1,17 +1,38 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+cmake_minimum_required(VERSION 2.6)
 
-PROJECT(daniel_zeichensaetze)
+project(
+	daniel_zeichensaetze)
 
-FIND_PACKAGE(Qt4 REQUIRED)
+find_package(Qt4 REQUIRED)
 
-SET(daniel_zeichensaetze_SOURCES main.cpp DzMainClass.cpp DzCopyer.cpp)
-SET(daniel_zeichensaetze_HEADERS DzMainClass.hpp DzCopyer.hpp)
-QT4_WRAP_CPP(daniel_zeichensaetze_HEADERS_MOC ${daniel_zeichensaetze_HEADERS})
+set(
+	daniel_zeichensaetze_SOURCES
+	main.cpp
+	DzMainClass.cpp
+	DzCopyer.cpp)
 
-INCLUDE(${QT_USE_FILE})
+set(
+	daniel_zeichensaetze_HEADERS
+	DzMainClass.hpp
+	DzCopyer.hpp)
 
-ADD_DEFINITIONS(${QT_DEFINITIONS})
+QT4_WRAP_CPP(
+	daniel_zeichensaetze_HEADERS_MOC
+	${daniel_zeichensaetze_HEADERS})
 
-ADD_EXECUTABLE(daniel_zeichensaetze ${daniel_zeichensaetze_SOURCES} ${daniel_zeichensaetze_HEADERS_MOC})
+include(
+	${QT_USE_FILE})
 
-TARGET_LINK_LIBRARIES(daniel_zeichensaetze ${QT_LIBRARIES})
+add_definitions(
+	${QT_DEFINITIONS})
+
+add_executable(
+	daniel_zeichensaetze
+	WIN32
+	${daniel_zeichensaetze_SOURCES}
+	${daniel_zeichensaetze_HEADERS_MOC})
+
+TARGET_LINK_LIBRARIES(
+	daniel_zeichensaetze
+	${QT_QTMAIN_LIBRARY}
+	${QT_LIBRARIES})
