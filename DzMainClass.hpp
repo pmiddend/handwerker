@@ -6,7 +6,9 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QHBoxLayout>
+#include <QCheckBox>
 #include <QLabel>
+#include <QProgressBar>
 #include <QWidget>
 #include <QObject>
 
@@ -23,19 +25,41 @@ public:
 	~DzMainClass();
 public slots:
 	void
-	directoryChooserClicked();
+	sourceDirectoryChooserClicked();
+
+	void
+	destDirectoryChooserClicked();
 
 	void
 	fileChooserClicked();
 
 	void
 	goClicked();
+
+	void
+	statusMessage(
+		QString const &);
+
+	void
+	errorMessage(
+		QString const &);
+
+	void
+	progress(
+		int,
+		int);
 private:
-	QLabel *directoryChooserLabel;
-	QLineEdit *directoryChooserFile;
-	QPushButton *directoryChooserButton;
-	QHBoxLayout *directoryChooserLayout;
-	QWidget *directoryChooserWidget;
+	QLabel *sourceDirectoryChooserLabel;
+	QLineEdit *sourceDirectoryChooserFile;
+	QPushButton *sourceDirectoryChooserButton;
+	QHBoxLayout *sourceDirectoryChooserLayout;
+	QWidget *sourceDirectoryChooserWidget;
+
+	QLabel *destDirectoryChooserLabel;
+	QLineEdit *destDirectoryChooserFile;
+	QPushButton *destDirectoryChooserButton;
+	QHBoxLayout *destDirectoryChooserLayout;
+	QWidget *destDirectoryChooserWidget;
 
 	QLabel *fileChooserLabel;
 	QLineEdit *fileChooserFile;
@@ -43,8 +67,20 @@ private:
 	QHBoxLayout *fileChooserLayout;
 	QWidget *fileChooserWidget;
 
-	QTextEdit *textInput;
+	QLabel *columnChooserLabel;
+	QLineEdit *columnLine;
+	QHBoxLayout *columnChooserLayout;
+	QWidget *columnChooserWidget;
+
+	QTextEdit *logMessages;
+
+	QProgressBar *progressBar;
+	QCheckBox *simulated;
+	QHBoxLayout *progressAndSimulatedLayout;
+	QWidget *progressAndSimulatedWidget;
+
 	QPushButton *goButton;
+
 	QVBoxLayout *layout;
 	QWidget *window;
 };
