@@ -17,6 +17,7 @@ public:
 		QString const &sourceDir,
 		QString const &destDir,
 		QString const &csvFile,
+		QString const &separator,
 		int column);
 
 	void
@@ -45,6 +46,7 @@ private:
 	QDir sourceDir;
 	QDir destDir;
 	QString csvFile;
+	QString separator;
 	int column;
 
 	bool

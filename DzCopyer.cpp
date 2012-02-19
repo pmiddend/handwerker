@@ -3,12 +3,14 @@
 #include <QTextStream>
 #include <QSet>
 #include <QFile>
+#include <QDebug>
 #include "DzCopyer.hpp"
 
 DzCopyer::DzCopyer(
 	QString const &_sourceDir,
 	QString const &_destDir,
 	QString const &_csvFile,
+	QString const &_separator,
 	int _column)
 :
 	sourceDir(
@@ -18,7 +20,9 @@ DzCopyer::DzCopyer(
 	column(
 		_column),
 	csvFile(
-		_csvFile)
+		_csvFile),
+	separator(
+		_separator)
 {
 }
 
@@ -27,7 +31,7 @@ DzCopyer::run(
 	bool const simulated)
 {
 	CSVFile compiledFile;
-	
+
 	if(!this->readCSV(compiledFile))
 		return;
 
@@ -62,7 +66,7 @@ DzCopyer::run(
 	}
 
 	emit statusMessage(
-		trUtf8("<font color=\"green\"><strog>Fertig!</strong></font>"));
+		trUtf8("<font color=\"green\"><strong>Fertig!</strong></font>"));
 }
 
 DzCopyer::~DzCopyer()
@@ -82,7 +86,7 @@ DzCopyer::readCSV(
 	QFile file(
 		csvFile);
 
-	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	if (!file.open(QIODevice::ReadOnly))
 	{
 		emit errorOccured(
 			trUtf8("Konnte Datei nicht öffnen: \"")+
@@ -94,14 +98,20 @@ DzCopyer::readCSV(
 	QTextStream in(
 		&file);
 
-	while (!in.atEnd()) 
-	{
-		QString const line =
-			in.readLine();
+	QStringList const lines =
+		in
+			.readAll()
+			.replace(trUtf8("\r\n"),trUtf8("\n"))
+			.replace(trUtf8("\r"),trUtf8("\n"))
+			.split(trUtf8("\n"));
 
+	for(QStringList::const_iterator line = lines.begin(); line != lines.end(); ++line)
+	{
+		if(!line->length())
+			continue;
 		compiledFile.push_back(
-			line.split(
-				trUtf8(",")));
+			line->split(
+				separator));
 	}
 
 	emit statusMessage(

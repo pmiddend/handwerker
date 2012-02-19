@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QDateTime>
 #include <QIntValidator>
+#include <QDebug>
 #include <iostream>
 
 DzMainClass::DzMainClass()
@@ -50,18 +51,27 @@ DzMainClass::DzMainClass()
 		fileChooserLayout);
 
 	columnChooserLabel = new QLabel(trUtf8("Spalte:"));
-	columnLine = new QLineEdit;
+	columnLine = new QLineEdit(trUtf8("1"));
 	columnLine->setMaxLength(3);
 	columnLine->setValidator(
 		new QIntValidator());
-	columnChooserLayout = new QHBoxLayout;
-	columnChooserLayout->addWidget(
+
+	separatorChooserLabel = new QLabel(trUtf8("Trennzeichen:"));
+	separatorChooserLine = new QLineEdit(trUtf8(";"));
+	separatorChooserLine->setMaxLength(1);
+
+	settingsLineLayout = new QHBoxLayout;
+	settingsLineLayout->addWidget(
 		columnChooserLabel);
-	columnChooserLayout->addWidget(
+	settingsLineLayout->addWidget(
 		columnLine);
-	columnChooserWidget = new QWidget();
-	columnChooserWidget->setLayout(
-		columnChooserLayout);
+	settingsLineLayout->addWidget(
+		separatorChooserLabel);
+	settingsLineLayout->addWidget(
+		separatorChooserLine);
+	settingsLineWidget = new QWidget();
+	settingsLineWidget->setLayout(
+		settingsLineLayout);
 
 	logMessages = new QTextEdit();
 
@@ -91,7 +101,7 @@ DzMainClass::DzMainClass()
 		fileChooserWidget);
 
 	layout->addWidget(
-		columnChooserWidget);
+		settingsLineWidget);
 
 	layout->addWidget(
 		logMessages);
@@ -141,6 +151,7 @@ DzMainClass::goClicked()
 		sourceDirectoryChooserFile->text(),
 		destDirectoryChooserFile->text(),
 		fileChooserFile->text(),
+		separatorChooserLine->text(),
 		columnLine->text().toInt()-1);
 
 	QObject::connect(

@@ -69,8 +69,10 @@ private:
 
 	QLabel *columnChooserLabel;
 	QLineEdit *columnLine;
-	QHBoxLayout *columnChooserLayout;
-	QWidget *columnChooserWidget;
+	QLabel *separatorChooserLabel;
+	QLineEdit *separatorChooserLine;
+	QHBoxLayout *settingsLineLayout;
+	QWidget *settingsLineWidget;
 
 	QTextEdit *logMessages;
 
